@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jua&display=swap&font-display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="preload"
+      href="https://fonts.gstatic.com/s/jua/v13/co3KmW9ljjAjc-DZCsKgsg.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <style>
+      :root {
+        --col-1: #cdb4db;
+        --col-2: #ffc8dd;
+        --col-3: #ffafcc;
+        --col-4: #bde0fe;
+        --col-5: #a2d2ff;
+      }
+
+      body {
+        background-color: var(--col-4);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: 100%;
+        margin: 0;
+        font-family: "Jua", "Malgun Gothic", "Apple SD Gothic Neo", serif;
+        font-weight: 400;
+        font-style: normal;
+
+        text-rendering: optimizeLegibility;
+      }
+
+      .container {
+        text-align: center;
+        font-size: 1.3em;
+        /* color: var(--col-1); */
+        display: flex;
+        flex-direction: column;
+      }
+
+      .container > .begin {
+        /* margin-bottom: -30px; */
+        margin-right: auto;
+        padding-left: 20px;
+      }
+
+      .container > .end {
+        /* margin-top: -15px; */
+        margin-left: auto;
+        padding-right: 20px;
+      }
+
+      .date-container-container {
+        width: 100vw;
+        background-color: var(--col-5);
+        display: flex;
+        justify-content: center;
+        /* padding-top: 20px; */
+      }
+
+      .date-container {
+        /* font-size: 6em; */
+        font-weight: bold;
+        display: flex;
+        flex-direction: row;
+        align-items: end;
+      }
+
+      .date-container > #date {
+        font-size: 10em;
+        font-weight: 1000;
+      }
+
+      .date-container > #date-2 {
+        font-size: 4em;
+        padding-bottom: 45px;
+      }
+    </style>
+
+    <title>D-Day</title>
+  </head>
+  <body>
+    <div class="container">
+      <span class="begin">사귀기 시작한지</span>
+      <div class="date-container-container">
+        <span class="date-container">
+          <span id="date"></span><span id="date-2">일</span>
+        </span>
+      </div>
+      <span class="end">since: 2024/12/24</span>
+    </div>
+  </body>
+  <script>
+    // 신조엘 사귀기 사작한 날짜
+    const START_DATE = "2024-12-24T00:00:00+09:00";
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const startDate = new Date(START_DATE);
+      const today = new Date().setHours(0, 0, 0, 0);
+
+      const daysSince = Math.ceil(
+        Math.abs(today - startDate) / (1000 * 60 * 60 * 24)
+      );
+      const date = document.getElementById("date");
+      date.textContent = `${daysSince}`;
+
+      document.title = `${daysSince}일째`;
+    });
+  </script>
+</html>
