@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="blue">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -18,17 +18,28 @@
       crossorigin
     />
 
+    <script>
+      let currentTheme = localStorage.getItem("theme") || "blue";
+      if (currentTheme !== "blue") {
+        document.documentElement.setAttribute("data-theme", currentTheme);
+      }
+    </script>
+
     <style>
-      :root {
-        --col-1: #cdb4db;
-        --col-2: #ffc8dd;
-        --col-3: #ffafcc;
-        --col-4: #bde0fe;
-        --col-5: #a2d2ff;
+      [data-theme="blue"] {
+        --color-0: #bde0fe;
+        --color-1: #a2d2ff;
+        --color-opposite: #ffc8dd;
+      }
+
+      [data-theme="pink"] {
+        --color-0: #ffc8dd;
+        --color-1: #ffafcc;
+        --color-opposite: #bde0fe;
       }
 
       body {
-        background-color: var(--col-4);
+        background-color: var(--color-0);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -40,6 +51,7 @@
         font-style: normal;
 
         text-rendering: optimizeLegibility;
+        transition: background-color 0.3s ease;
       }
 
       .container {
@@ -64,10 +76,11 @@
 
       .date-container-container {
         width: 100vw;
-        background-color: var(--col-5);
+        background-color: var(--color-1);
         display: flex;
         justify-content: center;
         /* padding-top: 20px; */
+        transition: background-color 0.3s ease;
       }
 
       .date-container {
@@ -83,15 +96,47 @@
         font-weight: 1000;
       }
 
+      @media (max-width: 500px) {
+        .date-container > #date {
+          font-size: 6em;
+        }
+      }
+
       .date-container > #date-2 {
         font-size: 4em;
         padding-bottom: 45px;
+      }
+
+      @media (max-width: 500px) {
+        .date-container > #date-2 {
+          padding-bottom: 20px;
+        }
+      }
+
+      #theme-toggle {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 35px;
+        height: 35px;
+        background-color: var(--color-opposite);
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      }
+
+      #theme-toggle:hover {
+        transform: scale(1.1);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
       }
     </style>
 
     <title>D-Day</title>
   </head>
   <body>
+    <button id="theme-toggle"></button>
     <div class="container">
       <span class="begin">사귀기 시작한지</span>
       <div class="date-container-container">
@@ -118,5 +163,15 @@
 
       document.title = `${daysSince}일째`;
     });
+
+    document
+      .getElementById("theme-toggle")
+      .addEventListener("click", function () {
+        const currentTheme =
+          document.documentElement.getAttribute("data-theme");
+        const newTheme = currentTheme === "blue" ? "pink" : "blue";
+        document.documentElement.setAttribute("data-theme", newTheme);
+        localStorage.setItem("theme", newTheme);
+      });
   </script>
 </html>
